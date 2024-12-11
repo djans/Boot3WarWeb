@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>com.cogitosum</groupId>
-    <artifactId>CourseWebModule</artifactId>
+    <artifactId>Boot3WarWeb</artifactId>
     <version>1.0.0</version>
     <name>CourseWebModule</name>
     <description>Web Module of the course application</description>
