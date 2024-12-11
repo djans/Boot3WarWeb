@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Swagger Courses - OpenAPI 3.0
+  description: POC
+  contact:
+    email: djans@cogitosum.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: course
+    description: Everything about your courses
+paths:
+  /:
+    get:
+      tags:
+        - course
+      summary: Get all the courses
+      description: Get the list of all the courses
+      operationId: getAllCourses
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApiResponse'          
+        '400':
+          description: Invalid Format
+        '422':
+          description: Validation exception
+    post:
+      tags:
+        - course
+      summary: Add a new course
+      description: Add a new course
+      operationId: addCourse
+      requestBody:
+        description: Create a new course
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'          
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /{id}:
+    get:
+      tags:
+        - course
+      summary: Find a course by id
+      description: Find a course by id
+      operationId: findCoursebyId
+      parameters:
+        - name: id
+          in: query
+          description: Id of the book that be found
+          required: true
+          schema:
+            type: string
+            default: available
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'          
+        '400':
+          description: Invalid status value
+components:
+  schemas:
+    Course:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 100
+        name:
+          type: string
+          example: 104
+        price:
+          type: integer
+          format: int32
+          example: 108
+      xml:
+        name: course
+    ApiResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        price:
+          type: integer
+          format: int32
+        name:
+          type: string
+      xml:
+        name: course
