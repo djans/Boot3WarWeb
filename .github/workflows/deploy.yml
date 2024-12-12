@@ -34,6 +34,13 @@ jobs:
       - name: chmod
         run: chmod -R +x ./.github
 
+      - name: ls
+        run: |
+          ls -l
+          ls -l ${{ env.applicationfolder }}
+          ls -l ${{ env.applicationfolder }}/target
+          ls -l $GITHUB_WORKSPACE
+
       - name: Build and Package Maven
         id: package
         working-directory: ${{ env.applicationfolder }}
