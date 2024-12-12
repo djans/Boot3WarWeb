@@ -9,6 +9,8 @@ phases:
     commands:
     - echo downloading the war file from s3
     - aws s3api get-object --bucket cogitosum-boot3warweb --key webModule.war /webModule.war
+    - pwd
+    - ls -l
     - echo Building the Docker image...
     - docker build -t cogitosum/boot3warweb .
     - docker tag cogitosum/boot3warweb:latest $REPOSITORY_URI:latest
