@@ -36,9 +36,7 @@ jobs:
 
       - name: ls
         run: |
-          ls -l
-          ls -l ${{ env.applicationfolder }}
-          ls -l ${{ env.applicationfolder }}/target
+          ls -l          
           ls -l $GITHUB_WORKSPACE
 
       - name: Build and Package Maven
