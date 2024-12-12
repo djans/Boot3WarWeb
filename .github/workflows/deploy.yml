@@ -1,7 +1,9 @@
 name: Build and Deploy
 
 on:
-  workflow_dispatch: {}
+  push:
+    branches:
+      - master
 
 env:
   applicationfolder: Boot3WarWeb
@@ -36,16 +38,18 @@ jobs:
 
       - name: ls
         run: |
-          ls -l          
+          echo "$GITHUB_WORKSPACE" $GITHUB_WORKSPACE
+          ls -l -r          
           ls -l $GITHUB_WORKSPACE
+          
 
       - name: Build and Package Maven
         id: package
-        working-directory: ${{ env.applicationfolder }}
+        working-directory: .
         run: $GITHUB_WORKSPACE/.github/scripts/build.sh
 
       - name: Upload Artifact to s3
-        working-directory: ${{ env.applicationfolder }}/target
+        working-directory: .
         run: aws s3 cp *.war s3://${{ env.S3BUCKET }}/
 
   deploy:
