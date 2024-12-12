@@ -10,7 +10,6 @@ USER 1001
 # Generate Liberty config based on server.xml
 RUN configure.sh
 
-RUN ls -l -R /opt
-RUN ls -l -R *.war
+RUN mvn clean package
 
-ADD webModule.war /opt/ibm/wlp/usr/servers/defaultServer/apps
+ADD target/webModule.war /opt/ibm/wlp/usr/servers/defaultServer/apps
