@@ -58,8 +58,8 @@ jobs:
 ##          role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
 ##          role-session-name: GitHub-Action-Role
 ##          aws-region: ${{ env.AWS_REGION }}
-      - name: Deploy to AWS
-        run: |
-          echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
-          commit_hash=`git rev-parse HEAD`
-          aws deploy create-deployment --application-name Boot3WarWeb --deployment-group-name Boot3WarWebDG --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures
+##      - name: Deploy to AWS
+##        run: |
+##          echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
+##          commit_hash=`git rev-parse HEAD`
+##          aws deploy create-deployment --application-name Boot3WarWeb --deployment-group-name Boot3WarWebDG --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures
