@@ -8,7 +8,7 @@ phases:
   build:
     commands:
     - echo Building the Docker image...
-    - docker build -t  cogitosum/boot3warweb .
+    - docker build -t cogitosum/boot3warweb .
     - docker tag cogitosum/boot3warweb:latest $REPOSITORY_URI:latest
   post_build:
     commands:
