@@ -1,6 +1,5 @@
 #IMAGE: Get the base image for Liberty
-FROM websphere-liberty:21.0.0.12-full-java17-openj9
-
+FROM 227000603860.dkr.ecr.us-east-2.amazonaws.com/cogitosum/liberty
 
 #BINARIES: Add in all necessary application binaries
 COPY src/main/liberty/config/server.xml /config/server.xml
