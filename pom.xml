@@ -11,7 +11,7 @@
     <groupId>com.cogitosum</groupId>
     <artifactId>Boot3WarWeb</artifactId>
     <version>1.0.0</version>
-    <name>CourseWebModule</name>
+    <name>Boot3WarWeb</name>
     <description>Web Module of the course application</description>
     <packaging>war</packaging>
 
@@ -34,7 +34,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <!-- Jakarta JSP Support -->
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
@@ -46,7 +45,6 @@
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>3.0.1</version>
         </dependency>
-
         <!-- AWS SDK for API Gateway -->
         <dependency>
             <groupId>com.amazonaws</groupId>
@@ -56,7 +54,7 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
-            <version>1.12.779</version> <!-- Use the latest version available -->
+            <version>1.12.779</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -83,50 +81,96 @@
             <artifactId>json</artifactId>
             <version>20240303</version>
         </dependency>
-        <!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
-<!--            <version>3.3.5</version>-->
-<!--        </dependency>-->
-
-        <!--        <dependency>-->
-<!--            <groupId>junit</groupId>-->
-<!--            <artifactId>junit</artifactId>-->
-<!--            <version>3.8.1</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
     </dependencies>
-    <build>
-<!--        <finalName>webModule</finalName>-->
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>io.openliberty.tools</groupId>
-                <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.11.1</version>
-                <configuration>
-                    <appsDirectory>apps</appsDirectory>
-                    <installAppPackages>spring-boot-project</installAppPackages>
-                    <include>minify,runnable</include>
-                    <packageName>GSSwebModuleApp</packageName>
-<!--                    <serverName>guideServer</serverName>-->
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>package-server</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>create</goal>
-                            <goal>install-feature</goal>
-                            <goal>deploy</goal>
-                            <goal>package</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <os>
+                    <name>Windows 11</name>
+                </os>
+            </activation>
+            <build>
+                <finalName>webModule</finalName>
+                <plugins>
+                    <!-- display active profile in compile phase -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-help-plugin</artifactId>
+                        <version>3.5.1</version>
+                        <executions>
+                            <execution>
+                                <id>show-profiles</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>active-profiles</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>io.openliberty.tools</groupId>
+                        <artifactId>liberty-maven-plugin</artifactId>
+                        <version>3.11.1</version>
+                        <configuration>
+                            <appsDirectory>apps</appsDirectory>
+                            <installAppPackages>spring-boot-project</installAppPackages>
+                            <include>minify,runnable</include>
+                            <packageName>webModule</packageName>
+                            <!--                    <serverName>guideServer</serverName>-->
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>package-server</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>create</goal>
+                                    <goal>install-feature</goal>
+                                    <goal>deploy</goal>
+                                    <goal>package</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>runtime</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <finalName>webModule</finalName>
+                <plugins>
+                    <!-- display active profile in compile phase -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-help-plugin</artifactId>
+                        <version>3.5.1</version>
+                        <executions>
+                            <execution>
+                                <id>show-profiles</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>active-profiles</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
