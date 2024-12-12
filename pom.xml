@@ -67,11 +67,6 @@
             <version>2.29.27</version>
         </dependency>
         <dependency>
-            <groupId>com.cogitosum</groupId>
-            <artifactId>CourseApiModule</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>retries</artifactId>
             <version>2.29.3</version>

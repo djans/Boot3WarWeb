@@ -39,9 +39,7 @@ jobs:
       - name: ls
         run: |
           echo "$GITHUB_WORKSPACE" $GITHUB_WORKSPACE
-          ls -l -r          
-          ls -l $GITHUB_WORKSPACE
-          
+          ls -l -R
 
       - name: Build and Package Maven
         id: package
