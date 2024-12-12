@@ -167,5 +167,12 @@
             </build>
         </profile>
     </profiles>
+    <distributionManagement>
+        <repository>
+            <id>cogitosum-CogitosumRepository</id>
+            <name>cogitosum-CogitosumRepository</name>
+            <url>https://cogitosum-227000603860.d.codeartifact.us-east-2.amazonaws.com/maven/CogitosumRepository/</url>
+        </repository>
+    </distributionManagement>
 
 </project>
