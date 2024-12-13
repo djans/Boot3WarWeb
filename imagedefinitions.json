@@ -1,6 +1,6 @@
 [
   {
-    "name": "boot3warweb",
+    "name": "cogitosum/boot3warweb",
     "imageUri": "227000603860.dkr.ecr.us-east-2.amazonaws.com/cogitosum/boot3warweb"
   }
 ]
