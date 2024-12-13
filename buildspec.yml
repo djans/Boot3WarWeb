@@ -20,4 +20,4 @@ phases:
     - docker push $REPOSITORY_URI:latest
 artifacts:
   files:
-    - imagedefinitions.json
+  - imagedefinitions.json
