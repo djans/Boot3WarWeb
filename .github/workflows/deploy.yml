@@ -44,7 +44,7 @@ jobs:
       - name: Upload Artifact to s3
         working-directory: ./target
         run: aws s3 cp ./*.war s3://${{ env.S3BUCKET }}/
-
+## Mis en commentaire car déploiement via Pipeline CodePipeline
 ##  deploy:
 ##    needs: build
 ##    runs-on: ubuntu-latest
