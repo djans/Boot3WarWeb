@@ -1,11 +1,14 @@
 version: 0.0
 os: linux
 files:
-  - source: /aws
-    destination: /usr/local/codedeployresources
-
+  - source: /
+    destination: /home/ec2-user/deployment
 hooks:
-  ApplicationStop:
-    - location: scripts/stop_application.sh
+  BeforeInstall:
+    - location: scripts/stop_container.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: scripts/start_container.sh
       timeout: 300
       runas: root
