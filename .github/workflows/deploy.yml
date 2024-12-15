@@ -8,7 +8,7 @@ on:
 env:
   applicationfolder: Boot3WarWeb
   AWS_REGION: us-east-2
-  S3BUCKET: cogitosum-boot3warweb
+  S3BUCKET: cogitosum-boot3warweb-ohio
 
 
 jobs:
