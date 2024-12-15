@@ -1,5 +1,11 @@
 version: 0.0
-
+os: linux
 files:
-  - source: /
-    destination: /var/www/html
+  - source: /aws
+    destination: /usr/local/codedeployresources
+
+hooks:
+  ApplicationStop:
+    - location: scripts/stop_application.sh
+      timeout: 300
+      runas: root
