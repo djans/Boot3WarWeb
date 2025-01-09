@@ -12,4 +12,4 @@ RUN configure.sh
 
 ## RUN mvn clean package
 
-ADD webModule.war /opt/ibm/wlp/usr/servers/defaultServer/dropins/webModule.war
+ADD webModule.war /opt/ibm/wlp/usr/servers/defaultServer/apps/webModule.war
