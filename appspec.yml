@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "arn:aws:ecs:us-east-2:227000603860:task-definition/TD-2025:5"
+        TaskDefinition: "arn:aws:ecs:us-east-2:227000603860:task-definition/TD-2025:6"
         LoadBalancerInfo:
           ContainerName: "boot3"
           ContainerPort: 9080
