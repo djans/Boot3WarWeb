@@ -11,10 +11,9 @@ FROM 227000603860.dkr.ecr.us-east-2.amazonaws.com/cogitosum/boot3warweb
 COPY src/main/liberty/config/server.xml /config/server.xml
 USER root
 RUN chown 1001:0 /config/server.xml
-USER 1001
-
 # Generate Liberty config based on server.xml
 RUN configure.sh
+USER 1001
 
 ## RUN mvn clean package
 
