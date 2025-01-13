@@ -33,7 +33,7 @@ public class JSPController {
     private CourseService lambdaService;
 
     // Handle GET requests and display the list of books
-    @GetMapping("/viewBooks")
+    @GetMapping("/")
     public String viewBooks(Model model) throws JsonProcessingException {
         StringBuffer response = new StringBuffer();
         extracted(response);
