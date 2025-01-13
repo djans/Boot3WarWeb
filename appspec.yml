@@ -1,15 +1,9 @@
 version: 0.0
-os: linux
-files:
-  - source: /
-    destination: /home/ec2-user/deployment
-
-hooks:
-  BeforeInstall:
-    - location: scripts/stop_container.sh
-      timeout: 300
-      runas: root
-  AfterInstall:
-    - location: scripts/start_container.sh
-      timeout: 300
-      runas: root
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:us-east-2:227000603860:task-definition/TD-2025:5"
+        LoadBalancerInfo:
+          ContainerName: "boot3"
+          ContainerPort: 9080

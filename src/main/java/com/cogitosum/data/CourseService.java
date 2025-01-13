@@ -1,5 +1,7 @@
 package com.cogitosum.data;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,10 +25,13 @@ public class CourseService {
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonRequest = objectMapper.writeValueAsString(course);
             System.out.println("jsonRequest: " + jsonRequest);
-            // Set up HTTP headers
+            // Send the jsonRequest to Kinesis using logger writing to /tmp/app.log
+            // Defining a logger
+            Logger logger = LoggerFactory.getLogger(CourseService.class);
+            logger.info(jsonRequest);
+            // Create the headers
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Type", "application/json");
-
             // Create the request entity
             HttpEntity<String> requestEntity = new HttpEntity<>(jsonRequest, headers);
             System.out.println("requestEntity: " + requestEntity);
