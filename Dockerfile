@@ -1,5 +1,11 @@
 #IMAGE: Get the base image for Liberty
-FROM 227000603860.dkr.ecr.us-east-2.amazonaws.com/cogitosum/liberty
+FROM 227000603860.dkr.ecr.us-east-2.amazonaws.com/cogitosum/boot3warweb
+
+## Kinesis Agent
+# RUN yum install -y aws-kinesis-agent which findutils
+# COPY agent.json /etc/aws-kinesis/agent.json
+
+# CMD ["start-aws-kinesis-agent"]
 
 #BINARIES: Add in all necessary application binaries
 COPY src/main/liberty/config/server.xml /config/server.xml
