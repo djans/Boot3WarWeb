@@ -12,7 +12,7 @@ COPY src/main/liberty/config/server.xml /config/server.xml
 USER root
 RUN chown 1001:0 /config/server.xml
 # Generate Liberty config based on server.xml
-RUN feature.sh
+# RUN feature.sh
 RUN configure.sh
 USER 1001
 
