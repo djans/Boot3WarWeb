@@ -32,7 +32,7 @@ public class JSPController {
     @Autowired
     private CourseService lambdaService;
 
-    // Handle GET requests and display the list of books
+    // Handle GET requests and display the list of books ....
     @GetMapping("/")
     public String viewBooks(Model model) throws JsonProcessingException {
         StringBuffer response = new StringBuffer();
