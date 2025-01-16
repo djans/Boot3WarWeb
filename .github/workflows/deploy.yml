@@ -94,28 +94,8 @@ jobs:
           aws deploy create-deployment \
             --application-name Boot3WarWeb \
             --deployment-group-name Boot3WarWebDG \
-            --revision "{
-                \"revisionType\": \"AppSpecContent\",
-                \"appSpecContent\": {
-                    \"content\": \"{
-                        \\\"version\\\": 0.0,
-                        \\\"Resources\\\": [
-                            {
-                                \\\"TargetService\\\": {
-                                    \\\"Type\\\": \\\"AWS::ECS::Service\\\",
-                                    \\\"Properties\\\": {
-                                        \\\"TaskDefinition\\\": \\\"$TASK_DEFINITION_ARN\\\",
-                                        \\\"LoadBalancerInfo\\\": {
-                                            \\\"ContainerName\\\": \\\"my-container\\\",
-                                            \\\"ContainerPort\\\": 9080
-                                        }
-                                    }
-                                }
-                            }
-                        ]
-                    }\"
-                }
-            }"
+            --revision {"revisionType": "AppSpecContent","appSpecContent": {"content": "{\"version\": 0.0,\"Resources\": [{\"TargetService\": {\"Type\": \"AWS::ECS::Service\",\"Properties\": {\"TaskDefinition\":\"arn:aws:ecs:us-east-2:***:task-definition/TD01:1\",\"LoadBalancerInfo\": {\"ContainerName\": \"my-container\",\"ContainerPort\": 9080}}}}]}"}
+  }
 #      - name: Deploy to AWS
 #        run: |
 #          echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
