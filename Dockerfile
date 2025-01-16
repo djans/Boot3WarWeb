@@ -5,9 +5,9 @@ FROM 227000603860.dkr.ecr.us-east-2.amazonaws.com/cogitosum/boot3warweb
 USER root
 ## Kinesis Agent
 
-RUN yum install -y amazon-ssm-agent
-RUN yum systemctl enable amazon-ssm-agent
-RUN yum systemctl start amazon-ssm-agent
+# RUN yum install -y amazon-ssm-agent
+# RUN yum systemctl enable amazon-ssm-agent
+# RUN yum systemctl start amazon-ssm-agent
 
 #BINARIES: Add in all necessary application binaries
 COPY src/main/liberty/config/server.xml /config/server.xml
