@@ -97,7 +97,7 @@ jobs:
             --revision "{
                 \"revisionType\": \"AppSpecContent\",
                 \"appSpecContent\": {
-                  \"content\": \"{
+                  \"content\": {
                         \"version\": 0.0,
                         \\\"Resources\\\": [
                             {
@@ -113,7 +113,7 @@ jobs:
                                 }
                             }
                         ]
-                    }\"
+                    }
                 }
             }"
 #      - name: Deploy to AWS
