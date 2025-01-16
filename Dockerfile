@@ -16,8 +16,7 @@ RUN chown 1001:0 /config/server.xml
 # Generate Liberty config based on server.xml
 # RUN feature.sh
 RUN configure.sh
-USER 1001
 
 ## RUN mvn clean package
-
 ADD webModule.war /opt/ibm/wlp/usr/servers/defaultServer/apps/webModule.war
+USER 1001
