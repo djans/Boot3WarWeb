@@ -95,9 +95,9 @@ jobs:
             --application-name Boot3WarWeb \
             --deployment-group-name Boot3WarWebDG \
             --revision "{
-                \"revisionType\": \"AppSpecContent\",
-                \"appSpecContent\": {
-                    \"content\": \"{
+                \\\"revisionType\\\": \\\"AppSpecContent\\\",
+                \\\"appSpecContent\\\": {
+                    \\\"content\\\": \\\"{
                         \\\"version\\\": 0.0,
                         \\\"Resources\\\": [
                             {
