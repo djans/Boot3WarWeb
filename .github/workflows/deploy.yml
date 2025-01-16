@@ -69,12 +69,12 @@ jobs:
                 "name": "my-container",
                 "image": "227000603860.dkr.ecr.us-east-1.amazonaws.com/cogitosum/boot3warweb:latest",
                 "memory": 512,
-                "cpu": 512,
+                "cpu": 256,
                 "essential": true,
                 "portMappings": [
                   {
-                    "containerPort": 9080,
-                    "hostPort": 80
+                    "containerPort": 80,
+                    "hostPort": 9080
                   }
                 ]
               }
@@ -94,8 +94,28 @@ jobs:
           aws deploy create-deployment \
             --application-name Boot3WarWeb \
             --deployment-group-name Boot3WarWebDG \
-            --revision {"revisionType": "AppSpecContent","appSpecContent": {"content": "{\"version\": 0.0,\"Resources\": [{\"TargetService\": {\"Type\": \"AWS::ECS::Service\",\"Properties\": {\"TaskDefinition\":\"arn:aws:ecs:us-east-2:***:task-definition/TD01:1\",\"LoadBalancerInfo\": {\"ContainerName\": \"my-container\",\"ContainerPort\": 9080}}}}]}"}
-  }
+            --revision "{
+                \"revisionType\": \"AppSpecContent\",
+                \"appSpecContent\": {
+                    \"content\": \"{
+                        \"version\": 0.0,
+                        \"Resources\": [
+                            {
+                                \"TargetService\": {
+                                    \"Type\": \"AWS::ECS::Service\",
+                                    \"Properties\": {
+                                        \"TaskDefinition\": \"$TASK_DEFINITION_ARN\",
+                                        \"LoadBalancerInfo\": {
+                                            \"ContainerName\": \"boot3\",
+                                            \"ContainerPort\": 9080
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }\"
+                }
+            }"
 #      - name: Deploy to AWS
 #        run: |
 #          echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
