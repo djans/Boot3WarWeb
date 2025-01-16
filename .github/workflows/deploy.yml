@@ -58,8 +58,66 @@ jobs:
           role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
           role-session-name: GitHub-Action-Role
           aws-region: ${{ env.AWS_REGION }}
-      - name: Deploy to AWS
+      - name: Register Task Definition
+        id: register_task_definition
         run: |
-          echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
-          commit_hash=`git rev-parse HEAD`
-          aws deploy create-deployment --application-name Boot3WarWeb --deployment-group-name Boot3WarWebDG --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures
+          cat <<EOF > task-def.json
+          {
+            "family": "TD01",
+            "containerDefinitions": [
+              {
+                "name": "my-container",
+                "image": "227000603860.dkr.ecr.us-east-1.amazonaws.com/cogitosum/boot3warweb:latest",
+                "memory": 512,
+                "cpu": 512,
+                "essential": true,
+                "portMappings": [
+                  {
+                    "containerPort": 9080,
+                    "hostPort": 80
+                  }
+                ]
+              }
+            ]
+          }
+          EOF
+          aws ecs register-task-definition --cli-input-json file://task-def.json
+
+      - name: Deploy to ECS
+        run: |
+          TASK_DEFINITION_ARN=$(aws ecs describe-task-definition \
+            --task-definition TD01 \
+            --query "taskDefinition.taskDefinitionArn" \
+            --output text)
+          echo "Task Definition ARN: $TASK_DEFINITION_ARN"
+          
+          aws deploy create-deployment \
+            --application-name Boot3WarWeb \
+            --deployment-group-name Boot3WarWebDG \
+            --revision "{
+                \"revisionType\": \"AppSpecContent\",
+                \"appSpecContent\": {
+                    \"content\": \"{
+                        \\\"version\\\": 0.0,
+                        \\\"Resources\\\": [
+                            {
+                                \\\"TargetService\\\": {
+                                    \\\"Type\\\": \\\"AWS::ECS::Service\\\",
+                                    \\\"Properties\\\": {
+                                        \\\"TaskDefinition\\\": \\\"$TASK_DEFINITION_ARN\\\",
+                                        \\\"LoadBalancerInfo\\\": {
+                                            \\\"ContainerName\\\": \\\"my-container\\\",
+                                            \\\"ContainerPort\\\": 9080
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }\"
+                }
+            }"
+#      - name: Deploy to AWS
+#        run: |
+#          echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
+#          commit_hash=`git rev-parse HEAD`
+#          aws deploy create-deployment --application-name Boot3WarWeb --deployment-group-name Boot3WarWebDG --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures
