@@ -98,16 +98,16 @@ jobs:
                 \"revisionType\": \"AppSpecContent\",
                 \"appSpecContent\": {
                     \"content\": \"{
-                        \"version\": 0.0,
-                        \"Resources\": [
+                        \\\"version\\\": 0.0,
+                        \\\"Resources\\\": [
                             {
-                                \"TargetService\": {
-                                    \"Type\": \"AWS::ECS::Service\",
-                                    \"Properties\": {
-                                        \"TaskDefinition\": \"$TASK_DEFINITION_ARN\",
-                                        \"LoadBalancerInfo\": {
-                                            \"ContainerName\": \"boot3\",
-                                            \"ContainerPort\": 9080
+                                \\\"TargetService\\\": {
+                                    \\\"Type\\\": \\\"AWS::ECS::Service\\\",
+                                    \\\"Properties\\\": {
+                                        \\\"TaskDefinition\\\": \\\"$TASK_DEFINITION_ARN\\\",
+                                        \\\"LoadBalancerInfo\\\": {
+                                            \\\"ContainerName\\\": \\\"boot3\\\",
+                                            \\\"ContainerPort\\\": 80
                                         }
                                     }
                                 }
