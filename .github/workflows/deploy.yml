@@ -97,7 +97,7 @@ jobs:
             --revision "{
                 \"revisionType\": \"AppSpecContent\",
                 \"appSpecContent\": {
-                    \"conten\":\"{
+                    \"content\\\":\"{
                         \"version\": 0.0,
                         \\\"Resources\\\": [
                             {
