@@ -101,13 +101,13 @@ jobs:
                         \"version\": 0.0,
                         \"Resources\": [
                             {
-                                \\\"TargetService\\\": {
-                                    \\\"Type\\\": \\\"AWS::ECS::Service\\\",
-                                    \\\"Properties\\\": {
-                                        \\\"TaskDefinition\\\": \\\"$TASK_DEFINITION_ARN\\\",
-                                        \\\"LoadBalancerInfo\\\": {
-                                            \\\"ContainerName\\\": \\\"boot3\\\",
-                                            \\\"ContainerPort\\\": 80
+                                \"TargetService\": {
+                                    \"Type\": \"AWS::ECS::Service\",
+                                    \"Properties\": {
+                                        \"TaskDefinition\": \"$TASK_DEFINITION_ARN\",
+                                        \"LoadBalancerInfo\": {
+                                            \"ContainerName\": \"boot3\",
+                                            \"ContainerPort\": 80
                                         }
                                     }
                                 }
