@@ -127,6 +127,6 @@ jobs:
             aws deploy create-deployment \
             --application-name Boot3WarWeb \
             --deployment-group-name Boot3WarWebDG \
-            --revision file://appspec.yml
+            --revision file://appspec.yaml
             --description "Deploying container image from ECR"
 
