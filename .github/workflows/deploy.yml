@@ -127,6 +127,6 @@ jobs:
             aws deploy create-deployment \
             --application-name Boot3WarWeb \
             --deployment-group-name Boot3WarWebDG \
-            --revision "revisionType=AppSpecContent,appSpecContent={\"content\":\"file://appspec.json\"}"
+            --revision "revisionType=AppSpecContent,appSpecContent=file://appspec.json"
             --description "Deploying container image from ECR"
 
