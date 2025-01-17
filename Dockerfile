@@ -1,5 +1,6 @@
 #IMAGE: Get the base image for Liberty
-FROM 227000603860.dkr.ecr.us-east-2.amazonaws.com/cogitosum/boot3warweb
+#FROM 227000603860.dkr.ecr.us-east-2.amazonaws.com/cogitosum/boot3warweb
+FROM ibmcom/websphere-liberty:latest
 
 ## Being ROOT
 USER root
