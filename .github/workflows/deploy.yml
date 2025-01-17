@@ -99,7 +99,7 @@ jobs:
                 \"appSpecContent\": {
                   \"content\": {
                         \"version\": 0.0,
-                        \\\"Resources\\\": [
+                        \"Resources\": [
                             {
                                 \\\"TargetService\\\": {
                                     \\\"Type\\\": \\\"AWS::ECS::Service\\\",
