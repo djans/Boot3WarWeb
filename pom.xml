@@ -177,6 +177,13 @@
                                     </includes>
                                     <targetPath>/</targetPath> <!-- Place it at the root of the WAR -->
                                 </resource>
+                                <resource>
+                                    <directory>/</directory> <!-- Directory containing appspec.yaml -->
+                                    <includes>
+                                        <include>Dockerfile</include> <!-- Include appspec.yaml file -->
+                                    </includes>
+                                    <targetPath>/</targetPath> <!-- Place it at the root of the WAR -->
+                                </resource>
                             </webResources>
                         </configuration>
                     </plugin>
