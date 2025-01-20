@@ -105,6 +105,29 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>3.3.1</version> <!-- Adjust version as needed -->
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <directory>src/main/resources</directory> <!-- Directory containing appspec.yaml -->
+                                    <includes>
+                                        <include>appspec.yaml</include> <!-- Include appspec.yaml file -->
+                                    </includes>
+                                    <targetPath>/</targetPath> <!-- Place it at the root of the WAR -->
+                                </resource>
+                                <resource>
+                                    <directory>/</directory> <!-- Directory containing Dockerfile -->
+                                    <includes>
+                                        <include>Dockerfile</include> <!-- Include Dockerfile -->
+                                    </includes>
+                                    <targetPath>/</targetPath> <!-- Place it at the root of the WAR -->
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                    <plugin>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                     </plugin>
@@ -160,10 +183,34 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <groupId>io.openliberty.tools</groupId>
+                        <artifactId>liberty-maven-plugin</artifactId>
+                        <version>3.11.1</version>
+                        <configuration>
+                            <appsDirectory>apps</appsDirectory>
+                            <installAppPackages>spring-boot-project</installAppPackages>
+                            <include>minify,runnable</include>
+                            <packageName>webModule</packageName>
+                            <!--                    <serverName>guideServer</serverName>-->
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>package-server</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>create</goal>
+                                    <goal>install-feature</goal>
+                                    <goal>deploy</goal>
+                                    <goal>package</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                     </plugin>
-                    <!-- Maven War Plugin to include appspec.yaml in the WAR file -->
+                    <!-- Maven War Plugin to include appspec.yaml and Dockerfile in the WAR file -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
@@ -178,9 +225,9 @@
                                     <targetPath>/</targetPath> <!-- Place it at the root of the WAR -->
                                 </resource>
                                 <resource>
-                                    <directory>/</directory> <!-- Directory containing appspec.yaml -->
+                                    <directory>/</directory> <!-- Directory containing Dockerfile -->
                                     <includes>
-                                        <include>Dockerfile</include> <!-- Include appspec.yaml file -->
+                                        <include>Dockerfile</include> <!-- Include Dockerfile -->
                                     </includes>
                                     <targetPath>/</targetPath> <!-- Place it at the root of the WAR -->
                                 </resource>
