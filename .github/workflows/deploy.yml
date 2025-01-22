@@ -58,7 +58,7 @@ jobs:
             if [ "$STATUS" == "SUCCEEDED" ]; then
               echo "Build succeeded!"
               break
-            elif [ "$STATUS" == "FAILED" ] || [ "$STATUS" == "FAULT" ] || [ "$STATUS" == "STOPPED"; then
+            elif [ "$STATUS" == "FAILED" ] || [ "$STATUS" == "FAULT" ] || [ "$STATUS" == "STOPPED" ]; then
               echo "Build failed with status: $STATUS"
               exit 1
             else
