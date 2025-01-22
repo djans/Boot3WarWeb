@@ -48,7 +48,24 @@ jobs:
       # Step Trigger CodeBuild
       - name: Trigger AWS CodeBuild
         run: |
-          aws codebuild start-build --project-name Boot3WarWeb
+          BUILD_ID=$(aws codebuild start-build --project-name Boot3WarWeb --query 'build.id' --output text)
+          echo "Build ID: $BUILD_ID"
+
+          # Wait for the build to complete
+          while true; do
+            STATUS=$(aws codebuild batch-get-builds --ids $BUILD_ID --query 'builds[0].buildStatus' --output text)
+            echo "Current build status: $STATUS"
+            if [ "$STATUS" == "SUCCEEDED" ]; then
+              echo "Build succeeded!"
+              break
+            elif [ "$STATUS" == "FAILED" ] || [ "$STATUS" == "FAULT" ] || [ "$STATUS" == "STOPPED"; then
+              echo "Build failed with status: $STATUS"
+              exit 1
+            else
+              echo "Build in progress, waiting for 10 seconds..."
+              sleep 10
+            fi
+          done
       # Step Trigger CodeDeploy
       - name: Trigger AWS CodeDeploy
         run: |
