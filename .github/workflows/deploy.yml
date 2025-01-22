@@ -49,4 +49,9 @@ jobs:
       - name: Trigger AWS CodeBuild
         run: |
           aws codebuild start-build --project-name Boot3WarWeb
+      # Step Trigger CodeDeploy
+      - name: Trigger AWS CodeDeploy
+        run: |
+          aws deploy create-deployment --application-name boot3warweb --deployment-group-name boot3warweb2025 --revision file://imagedefinitions.json
+
 
