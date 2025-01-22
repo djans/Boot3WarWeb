@@ -14,10 +14,12 @@ phases:
     - ls -l
     - echo Building the Docker image...
     - docker build -t boot3warweb .
-    - docker tag boot3warweb:latest
+    - docker tag boot3warweb:latest $REPOSITORY_URI:latest
   post_build:
     commands:
     - echo Pushing the Docker image to ECR...
+    - echo Get list of images
+    - docker images
     - echo $REPOSITORY_URI
     - docker push $REPOSITORY_URI:latest
     - echo Triggering CodeDeploy deployment...
