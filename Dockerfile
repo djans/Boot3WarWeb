@@ -6,6 +6,9 @@ ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
 
 # Copy the WAR file directly
+RUN ls -ltr /config/apps
+
+RUN ls -ltr target
 COPY --chown=1001:0 target/$APPNAME /config/apps/$APPNAME
 
 # Thin the application and configure
