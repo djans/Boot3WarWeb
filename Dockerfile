@@ -1,25 +1,21 @@
-# Stage and thin the application
-FROM icr.io/appcafe/open-liberty:full-java21-openj9-ubi-minimal AS staging
-
-ARG APPNAME=webModule.war
-COPY --chown=1001:0 target/$APPNAME /staging/$APPNAME
-
-RUN springBootUtility thin \
- --sourceAppPath=/staging/$APPNAME \
- --targetThinAppPath=/staging/thin-$APPNAME \
- --targetLibCachePath=/staging/lib.index.cache
-
-FROM icr.io/appcafe/open-liberty:kernel-slim-java21-openj9-ubi-minimal
+# Build and configure the application
+FROM icr.io/appcafe/open-liberty:full-java21-openj9-ubi-minimal
 
 ARG APPNAME=webModule.war
 ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
+
+# Copy the WAR file directly
+COPY --chown=1001:0 target/$APPNAME /config/apps/$APPNAME
+
+# Thin the application and configure
+RUN springBootUtility thin \
+  --sourceAppPath=/config/apps/$APPNAME \
+  --targetThinAppPath=/config/apps/thin-$APPNAME \
+  --targetLibCachePath=/lib.index.cache
+
+# Copy the server.xml configuration
 COPY --chown=1001:0 src/main/liberty/config/server.xml /config/server.xml
 
-RUN features.sh
-
-COPY --chown=1001:0 --from=staging /staging/lib.index.cache /lib.index.cache
-COPY --chown=1001:0 --from=staging /staging/$APPNAME \
-                    /config/apps/$APPNAME
-
-RUN configure.sh
+# Install Liberty features and run additional configuration
+RUN features.sh && configure.sh

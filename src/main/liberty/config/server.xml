@@ -13,7 +13,7 @@
     <!-- Default SSL configuration enables trust for default certificates from the Java runtime -->
     <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
     <!-- Configure Application -->
-    <springBootApplication id="spring-liberty" location="webModule.war" name="spring-liberty">
+    <springBootApplication id="spring-liberty" location="thin-webModule.war" name="spring-liberty">
         <applicationArgument>--server.servlet.context-path=/</applicationArgument>
     </springBootApplication>
 </server>
