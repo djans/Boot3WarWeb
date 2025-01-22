@@ -13,13 +13,18 @@ phases:
     - pwd
     - ls -l
     - echo Building the Docker image...
-    - docker build -t cogitosum/boot3warweb .
-    - docker tag cogitosum/boot3warweb:latest $REPOSITORY_URI:latest
+    - docker build -t boot3warweb .
+    - docker tag boot3warweb:latest
   post_build:
     commands:
     - echo Pushing the Docker image to ECR...
     - echo $REPOSITORY_URI
     - docker push $REPOSITORY_URI:latest
+    - echo Triggering CodeDeploy deployment...
+    - aws deploy create-deployment \
+      --application-name boot3warweb \
+      --deployment-group-name boot3warweb2025 \
+      --s3-location bucket=cogitosum-boot3warweb-ohio,key=appspec.yml,bundleType=YAML    -
 artifacts:
   files:
   - imagedefinitions.json

@@ -1,23 +1,25 @@
-#IMAGE: Get the base image for Liberty
-#FROM 227000603860.dkr.ecr.us-east-2.amazonaws.com/cogitosum/boot3warweb
-FROM ibmcom/websphere-liberty:latest
+# Stage and thin the application
+FROM icr.io/appcafe/open-liberty:full-java21-openj9-ubi-minimal AS staging
 
-## Being ROOT
-USER root
-## Kinesis Agent
+ARG APPNAME=webModule.war
+COPY --chown=1001:0 target/$APPNAME /staging/$APPNAME
 
-# RUN yum install -y amazon-ssm-agent
-# RUN yum systemctl enable amazon-ssm-agent
-# RUN yum systemctl start amazon-ssm-agent
+RUN springBootUtility thin \
+ --sourceAppPath=/staging/$APPNAME \
+ --targetThinAppPath=/staging/thin-$APPNAME \
+ --targetLibCachePath=/staging/lib.index.cache
 
-#BINARIES: Add in all necessary application binaries
-COPY src/main/liberty/config/server.xml /config/server.xml
+FROM icr.io/appcafe/open-liberty:kernel-slim-java21-openj9-ubi-minimal
 
-RUN chown 1001:0 /config/server.xml
-# Generate Liberty config based on server.xml
-# RUN feature.sh
+ARG APPNAME=webModule.war
+ARG VERSION=1.0
+ARG REVISION=SNAPSHOT
+COPY --chown=1001:0 src/main/liberty/config/server.xml /config/server.xml
+
+RUN features.sh
+
+COPY --chown=1001:0 --from=staging /staging/lib.index.cache /lib.index.cache
+COPY --chown=1001:0 --from=staging /staging/$APPNAME \
+                    /config/apps/$APPNAME
+
 RUN configure.sh
-
-## RUN mvn clean package
-ADD webModule.war /opt/ibm/wlp/usr/servers/defaultServer/apps/webModule.war
-USER 1001

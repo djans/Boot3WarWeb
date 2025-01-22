@@ -13,12 +13,13 @@ env:
 
 jobs:
   build:
-    name: Build and Package
+    name: Build - Package - Dockerize
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
     steps:
+      # Setup the configuration
       - uses: actions/checkout@v2
         name: Checkout Repository
 
@@ -35,98 +36,17 @@ jobs:
 
       - name: chmod
         run: chmod -R +x ./.github
-
+      # Build the code ( Maven )
       - name: Build and Package Maven
         id: package
         working-directory: .
         run: $GITHUB_WORKSPACE/.github/scripts/build.sh
-
+      # Step Upload to S3
       - name: Upload Artifact to s3
         working-directory: ./target
         run: aws s3 cp ./*.war s3://${{ env.S3BUCKET }}/
-## Mis en commentaire car déploiement via Pipeline CodePipeline 1
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - uses: actions/checkout@v2
-      - uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-          role-session-name: GitHub-Action-Role
-          aws-region: ${{ env.AWS_REGION }}
-#      - name: Register Task Definition
-#        id: register_task_definition
-#        run: |
-#          cat <<EOF > task-def.json
-#          {
-#            "family": "TD01",
-#            "containerDefinitions": [
-#              {
-#                "name": "my-container",
-#                "image": "227000603860.dkr.ecr.us-east-1.amazonaws.com/cogitosum/boot3warweb:latest",
-#                "memory": 512,
-#                "cpu": 256,
-#                "essential": true,
-#                "portMappings": [
-#                  {
-#                    "containerPort": 80,
-#                    "hostPort": 9080
-#                  }
-#                ]
-#              }
-#            ]
-#          }
-#          EOF
-#          aws ecs register-task-definition --cli-input-json file://task-def.json
-#
-#      - name: Deploy to ECS
-#        run: |
-#          TASK_DEFINITION_ARN=$(aws ecs describe-task-definition \
-#            --task-definition TD01 \
-#            --query "taskDefinition.taskDefinitionArn" \
-#            --output text)
-#          echo "Task Definition ARN: $TASK_DEFINITION_ARN"
-#
-#          aws deploy create-deployment \
-#            --application-name Boot3WarWeb \
-#            --deployment-group-name Boot3WarWebDG \
-#            --revision "{
-#                \"revisionType\": \"AppSpecContent\",
-#                \"appSpecContent\": {
-#                  \"content\": \"{
-#                        \\\"version\\\": 0.0,
-#                        \\\"Resources\\\": [
-#                            {
-#                                \"TargetService\": {
-#                                    \"Type\": \"AWS::ECS::Service\",
-#                                    \"Properties\": {
-#                                        \"TaskDefinition\": \"$TASK_DEFINITION_ARN\",
-#                                        \"LoadBalancerInfo\": {
-#                                            \"ContainerName\": \"boot3\",
-#                                            \"ContainerPort\": 80
-#                                        }
-#                                    }
-#                                }
-#                            }
-#                        ]
-#                    }
-#                }
-#            }"
-#
-#      - name: Deploy to AWS
-#        run: |
-#          echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
-#          commit_hash=`git rev-parse HEAD`
-#          aws deploy create-deployment --application-name Boot3WarWeb --deployment-group-name Boot3WarWebDG --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures
-      - name: Deploy to AWS2
-        run: |  
-            aws deploy create-deployment \
-            --application-name Boot3WarWeb \
-            --deployment-group-name Boot3WarWebDG \
-            --revision '{"revisionType":"AppSpecContent","appSpecContent":{"content":"file://appspec.yaml"}}' \
-            --description "Deploying container image from ECR"
+      # Step Trigger CodeBuild
+      - name: Trigger AWS CodeBuild
+        run: |
+          aws codebuild start-build --project-name Boot3WarWeb
 
