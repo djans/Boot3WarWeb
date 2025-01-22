@@ -44,7 +44,12 @@ jobs:
       # Step Upload to S3
       - name: Upload Artifact to s3
         working-directory: ./target
-        run: aws s3 cp ./*.war s3://${{ env.S3BUCKET }}/
+        run: | 
+          aws s3 cp ./*.war s3://${{ env.S3BUCKET }}/
+          mkdir scripts
+          cp ./aws/scripts/*.* scripts/*.*
+          zip -r appspec.zip appspec.yml scripts/*.*
+          aws s3 cp appspec.zip s3://${{ env.S3BUCKET }}/
       # Step Trigger CodeBuild
       - name: Trigger AWS CodeBuild
         run: |
