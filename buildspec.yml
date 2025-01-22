@@ -23,10 +23,7 @@ phases:
     - echo $REPOSITORY_URI
     - docker push $REPOSITORY_URI:latest
     - echo Triggering CodeDeploy deployment...
-    - aws deploy create-deployment \
-      --application-name boot3warweb \
-      --deployment-group-name boot3warweb2025 \
-      --s3-location bucket=cogitosum-boot3warweb-ohio,key=appspec.yml,bundleType=YAML    -
+    - aws deploy create-deployment --application-name boot3warweb --deployment-group-name boot3warweb2025 --s3-location bucket=cogitosum-boot3warweb-ohio,key=appspec.yml,bundleType=YAML
 artifacts:
   files:
   - imagedefinitions.json
