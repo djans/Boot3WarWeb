@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application {
 
     public static void main(String[] args) {
-        System.out.println("Arguments array = " + java.util.Arrays.toString(args));
+        System.out.println("Arguments array is equal to " + java.util.Arrays.toString(args));
         SpringApplication.run(Application.class);
     }
 }
