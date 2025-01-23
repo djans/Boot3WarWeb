@@ -1,9 +1,16 @@
 version: 0.0
-Resources:
-  - TargetService:
-      Type: AWS::ECS::Service
-      Properties:
-        TaskDefinition: "arn:aws:ecs:us-east-2:227000603860:task-definition/TD-01-2025:1"
-        LoadBalancerInfo:
-          ContainerName: "boot3"
-          ContainerPort: 9080
+os: linux
+# Test
+files:
+  - source: /
+    destination: /home/ec2-user/deployment
+
+hooks:
+  BeforeInstall:
+    - location: scripts/pull-ecr-image.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: scripts/start-container.sh
+      timeout: 300
+      runas: root

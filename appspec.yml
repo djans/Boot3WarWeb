@@ -6,13 +6,7 @@ files:
 
 hooks:
   BeforeInstall:
-    - location: /bin/bash
-      timeout: 300
-      runas: root
-      script: |
-        echo "Listing contents :"
-        ls -ltr
-    - location: scripts/stop-container.sh
+    - location: scripts/pull-ecr-image.sh
       timeout: 300
       runas: root
   AfterInstall:
