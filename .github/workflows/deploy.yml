@@ -76,6 +76,7 @@ jobs:
       # Step Trigger CodeDeploy
       - name: Trigger AWS CodeDeploy
         run: |
-          aws deploy create-deployment --application-name boot3warweb --deployment-group-name boot3warweb2025 --revision file://imagedefinitions.json
+#          aws deploy create-deployment --application-name boot3warweb --deployment-group-name boot3warweb2025 --revision file://imagedefinitions.json
+          aws deploy create-deployment --application-name boot3warweb --deployment-group-name boot3warweb2025 --s3-location bucket=cogitosum-boot3warweb-ohio,key=appspec.zip,bundleType=zip
 
 
