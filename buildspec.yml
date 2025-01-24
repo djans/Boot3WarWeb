@@ -28,8 +28,8 @@ phases:
     - if ! type "$dos2unix" > /dev/null; then echo "foobar_command_name does not exist"; fi
 #    - dos2unix imagedefinitions.json
 #    - cat imagedefinitions.json
-    - echo Triggering CodeDeploy deployment...
-    - aws deploy create-deployment --application-name boot3warweb --deployment-group-name boot3warweb2025 --s3-location bucket=cogitosum-boot3warweb-ohio,key=appspec.zip,bundleType=zip
+#    - echo Triggering CodeDeploy deployment...
+#    - aws deploy create-deployment --application-name boot3warweb --deployment-group-name boot3warweb2025 --s3-location bucket=cogitosum-boot3warweb-ohio,key=appspec.zip,bundleType=zip
 artifacts:
   files:
   - imagedefinitions.json
