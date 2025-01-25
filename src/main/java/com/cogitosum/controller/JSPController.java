@@ -58,7 +58,7 @@ public class JSPController {
         extracted(response);
         String parsedJson = parseJsonResponse(response.toString());
 
-        return "examples/server_side";
+        return "/";
     }
 
     // Helper method to parse JSON response from the API
