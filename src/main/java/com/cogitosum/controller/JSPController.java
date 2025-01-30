@@ -53,9 +53,8 @@ public class JSPController {
         jSonCourse.put("name", o.getName());
         jSonCourse.put("price", o.getPrice());
         HttpEntity<String> request = new HttpEntity<String>(jSonCourse.toString(), headers);
-        Course course = restTemplate.postForObject(LAMBDA_URL, request, Course.class);
         this.sendXrayTrace();
-
+        restTemplate.postForObject(LAMBDA_URL, request, Course.class);
         StringBuffer response = new StringBuffer();
         extracted(response);
         String parsedJson = parseJsonResponse(response.toString());
