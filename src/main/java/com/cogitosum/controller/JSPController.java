@@ -54,7 +54,7 @@ public class JSPController {
         StringBuffer response = new StringBuffer();
         extracted(response);
         String parsedJson = parseJsonResponse(response.toString());
-        return "/done";
+        return "done";
     }
 
     // Helper method to parse JSON response from the API
