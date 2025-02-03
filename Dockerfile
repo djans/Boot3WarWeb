@@ -1,5 +1,5 @@
 # Build and configure the application
-FROM icr.io/appcafe/open-liberty:full-java21-openj9-ubi-minimal
+FROM icr.io/appcafe/open-liberty:24.0.0.9-full-java21-openj9-ubi-minimal
 
 ARG APPNAME=webModule.war
 ARG VERSION=1.0
@@ -11,8 +11,8 @@ COPY --chown=1001:0 $APPNAME /config/apps/$APPNAME
 USER root
 # Install AWS X-Ray daemon ( BEWARE of the region )
 yum install -y curl
-curl https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-3.x.rpm -o /home/ec2-user/xray.rpm
-yum install -y /home/ec2-user/xray.rpm
+curl https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-3.x.rpm -o /tmp/xray.rpm
+yum install -y /tmp/xray.rpm
 systemctl start xray
 systemctl enable xray
 
