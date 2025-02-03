@@ -9,7 +9,7 @@ ARG REVISION=SNAPSHOT
 COPY --chown=1001:0 $APPNAME /config/apps/$APPNAME
 
 # Install AWS X-Ray daemon
-RUN yum install -y unzip
+#RUN yum install -y unzip
 RUN curl -o /tmp/xray-daemon.zip https://s3.amazonaws.com/aws-xray-assets.us-east-1/xray-daemon/aws-xray-daemon-linux.zip
 RUN unzip /tmp/xray-daemon.zip -d /usr/local/bin
 RUN rm /tmp/xray-daemon.zip
