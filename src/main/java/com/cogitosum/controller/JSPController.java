@@ -22,9 +22,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import software.amazon.awssdk.services.xray.XRayClient;
-import software.amazon.awssdk.services.xray.model.*;
-
 @Controller
 public class JSPController {
 
@@ -53,7 +50,6 @@ public class JSPController {
         jSonCourse.put("name", o.getName());
         jSonCourse.put("price", o.getPrice());
         HttpEntity<String> request = new HttpEntity<String>(jSonCourse.toString(), headers);
-        this.sendXrayTrace();
         restTemplate.postForObject(LAMBDA_URL, request, Course.class);
         StringBuffer response = new StringBuffer();
         extracted(response);
@@ -92,20 +88,5 @@ public class JSPController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void sendXrayTrace() {
-        // Send X-Ray trace
-        System.out.println("Sending X-Ray trace");
-        XRayClient xRayClient = XRayClient.create();
-
-        PutTraceSegmentsRequest request = PutTraceSegmentsRequest.builder()
-                .traceSegmentDocuments("[{\"trace_id\": \"1-67891233-abcdef012345678912345678\", \"name\": \"myApp\", \"id\": \"abcdef012345678912345678\", \"start_time\": 1700000000, \"end_time\": 1700000005}]")
-                .build();
-
-        xRayClient.putTraceSegments(request);
-        System.out.println("Trace sent to X-Ray.");
-
-        xRayClient.close();
     }
 }

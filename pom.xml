@@ -18,6 +18,7 @@
     <properties>
         <java.version>21</java.version>
         <aws.sdk.version>2.29.27</aws.sdk.version>
+        <aws.xray.version>2.18.2</aws.xray.version>
     </properties>
 
     <dependencies>
@@ -70,16 +71,37 @@
             <artifactId>retries</artifactId>
             <version>${aws.sdk.version}</version>
         </dependency>
+
         <!-- AWS X-Ray SDK for Java V2 -->
         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>xray</artifactId>
-            <version>${aws.sdk.version}</version>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-xray-recorder-sdk-core</artifactId>
+            <version>${aws.xray.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-xray-recorder-sdk-apache-http</artifactId>
+            <version>${aws.xray.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-xray-recorder-sdk-aws-sdk</artifactId>
+            <version>${aws.xray.version}</version>
+        </dependency>
+
+
+        <!-- Other Dependencies -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20240303</version>
+        </dependency>
+
+        <!-- Test Mastodon -->
+        <dependency>
+            <groupId>com.github.scribejava</groupId>
+            <artifactId>scribejava-apis</artifactId>
+            <version>8.3.3</version>
         </dependency>
     </dependencies>
     <profiles>
