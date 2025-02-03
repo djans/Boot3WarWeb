@@ -8,14 +8,9 @@ ARG REVISION=SNAPSHOT
 # Copy the WAR file directly
 COPY --chown=1001:0 $APPNAME /config/apps/$APPNAME
 
-# Install AWS X-Ray daemon
-#RUN yum install -y unzip
-RUN curl -o /tmp/xray-daemon.zip https://s3.amazonaws.com/aws-xray-assets.us-east-1/xray-daemon/aws-xray-daemon-linux.zip
-RUN unzip /tmp/xray-daemon.zip -d /usr/local/bin
-RUN rm /tmp/xray-daemon.zip
-
-# Run the daemon in the background along with the application
-CMD /usr/local/bin/xray-daemon -o
+# Install AWS X-Ray daemon ( BEWARE of the region )
+# curl https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-3.x.rpm -o /home/ec2-user/xray.rpm
+# yum install -y /home/ec2-user/xray.rpm
 
 # Thin the application and configure
 RUN springBootUtility thin \
