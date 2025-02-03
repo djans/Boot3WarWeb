@@ -10,13 +10,12 @@ COPY --chown=1001:0 $APPNAME /config/apps/$APPNAME
 
 USER root
 # Install AWS X-Ray daemon ( BEWARE of the region )
-rpm -ivh https://download-ib01.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/d/dnf-repo-0.6-1.el9.x86_64.rpm
-dnf install yum
-yum install -y curl
-curl https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-3.x.rpm -o /tmp/xray.rpm
-yum install -y /tmp/xray.rpm
-systemctl start xray
-systemctl enable xray
+RUN dnf install yum
+RUN yum install -y curl
+RUN curl https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-3.x.rpm -o /tmp/xray.rpm
+RUN yum install -y /tmp/xray.rpm
+#RUN systemctl start xray
+#RUN systemctl enable xray
 
 USER 1001
 
