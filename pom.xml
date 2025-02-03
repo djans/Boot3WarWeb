@@ -16,7 +16,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <aws.sdk.version>2.29.27</aws.sdk.version>
         <aws.xray.version>2.18.2</aws.xray.version>
     </properties>
