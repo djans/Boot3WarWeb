@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,33 @@ import java.util.List;
 public class JSPController {
 
     private static final String LAMBDA_URL = "https://8jtg7qcsz8.execute-api.us-east-2.amazonaws.com/dev/courses";
+    String[] ip;
 
     @Autowired
     private CourseService lambdaService;
+
+    // Handle GET requests and display the list of books ....
+    @GetMapping(path = "/test")
+    public void test(Model model) throws JsonProcessingException {
+        int startPortRange=2000;
+        ip = new String[4];
+        ip[0] = "127.0.0.1";
+        ip[1] = "18.189.195.148";
+        ip[2] = "172.31.1.166";
+        ip[3] = "ip-172-31-1-166.us-east-2.compute.internal";
+        ip[4] = "172.17.0.3";
+        for (int i = 0; i < 4; i++) {
+            System.out.println("Scanning IP Address: " + ip[i]);
+            try {
+                Socket ServerSok = new Socket(ip[i],2000);
+                System.out.println("Port in use on : " + ip[i] );
+                ServerSok.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("Port not in use: " + ip[i] );
+        }
+    }
 
     // Handle GET requests and display the list of books ....
     @GetMapping("/")
