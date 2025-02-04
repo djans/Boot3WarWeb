@@ -50,8 +50,9 @@ public class JSPController {
                 ServerSok.close();
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Port not in use: " + ip[i] );
             }
-            System.out.println("Port not in use: " + ip[i] );
+
         }
     }
 
