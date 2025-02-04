@@ -21,7 +21,6 @@ public class AppConfig {
 
     @Bean
     public FilterRegistrationBean<AWSXRayServletFilter> xrayFilter() {
-        System.setProperty("com.amazonaws.xray.emitters.daemonAddress","172.31.1.166");
         FilterRegistrationBean<AWSXRayServletFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new AWSXRayServletFilter("MySpringBootApp"));
         registration.addUrlPatterns("/*"); // Apply to all endpoints
