@@ -36,7 +36,7 @@ public class JSPController {
     @GetMapping(path = "/test")
     public void test(Model model) throws JsonProcessingException {
         int startPortRange=2000;
-        ip = new String[4];
+        ip = new String[5];
         ip[0] = "127.0.0.1";
         ip[1] = "18.189.195.148";
         ip[2] = "172.31.1.166";
