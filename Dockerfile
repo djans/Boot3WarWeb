@@ -10,13 +10,12 @@ USER root
 # Install the X-Ray daemon
 RUN yum install -y unzip
 RUN yum install -y curl
-RUN systemctl status docker
 RUN curl -o /tmp/daemon.zip https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-linux-3.x.zip
 RUN unzip /tmp/daemon.zip && cp xray /usr/bin/xray
-#RUN nohup /usr/bin/xray -o -t 0.0.0.0:2000 -b 0.0.0.0:2000 -n us-east-2
-USER 1001
+RUN ls -ltr
+COPY start-server.sh /opt/ol/helpers/runtime/start-server.sh
 
-# Copy the WAR file directly
+USER 1001
 COPY --chown=1001:0 $APPNAME /config/apps/$APPNAME
 
 # Thin the application and configure
@@ -27,6 +26,7 @@ RUN springBootUtility thin \
 
 # Copy the server.xml configuration
 COPY --chown=1001:0 src/main/liberty/config/server.xml /config/server.xml
+ENTRYPOINT ["//opt/ol/helpers/runtime/start-server.sh"]
 
 # Install Liberty features and run additional configuration
 #RUN features.sh && configure.sh

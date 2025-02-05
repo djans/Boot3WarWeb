@@ -257,7 +257,8 @@
                                 <resource>
                                     <directory>/</directory> <!-- Directory containing Dockerfile -->
                                     <includes>
-                                        <include>Dockerfile</include> <!-- Include Dockerfile -->
+                                        <include>Dockerfile</include><!-- Include Dockerfile -->
+                                        <include>start-server.sh</include><!-- Include ecs-params.yml -->
                                     </includes>
                                     <targetPath>/</targetPath> <!-- Place it at the root of the WAR -->
                                 </resource>

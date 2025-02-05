@@ -12,6 +12,7 @@ phases:
     - aws s3api get-object --bucket cogitosum-boot3warweb-ohio --key webModule.war webModule.war
     - pwd
     - ls -l
+    - unzip webModule.war start-server.sh
     - echo Building the Docker image...
     - docker build -t boot3warweb .
     - docker tag boot3warweb:latest $REPOSITORY_URI:latest
