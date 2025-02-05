@@ -1,5 +1,5 @@
 # Build and configure the application
-FROM icr.io/appcafe/open-liberty:full-java21-openj9-ubi-minimal
+FROM icr.io/appcafe/open-liberty:24.0.0.12-full-java17-openj9-ubi
 
 ARG APPNAME=webModule.war
 ARG VERSION=1.0
