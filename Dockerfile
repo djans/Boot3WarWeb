@@ -14,7 +14,7 @@ RUN curl -o /tmp/daemon.zip https://s3.us-east-2.amazonaws.com/aws-xray-assets.u
 RUN unzip /tmp/daemon.zip && cp xray /usr/bin/xray
 RUN ls -ltr
 COPY start-server.sh /opt/ol/helpers/runtime/start-server.sh
-
+RUN chmod +x /opt/ol/helpers/runtime/start-server.sh
 USER 1001
 COPY --chown=1001:0 $APPNAME /config/apps/$APPNAME
 
@@ -26,7 +26,7 @@ RUN springBootUtility thin \
 
 # Copy the server.xml configuration
 COPY --chown=1001:0 src/main/liberty/config/server.xml /config/server.xml
-RUN chmod +x /opt/ol/helpers/runtime/start-server.sh
+
 ENTRYPOINT ["/opt/ol/helpers/runtime/start-server.sh"]
 
 # Install Liberty features and run additional configuration
