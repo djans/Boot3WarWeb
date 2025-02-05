@@ -36,14 +36,14 @@ public class JSPController {
     @GetMapping(path = "/test")
     public void test(@RequestParam(required = true) String ip) throws JsonProcessingException {
         int startPortRange=2000;
-        String[] ips = new String[0];
+        String[] ips = new String[1];
         ips[0] = ip;
         //ips[1] = "18.189.195.148";
         //ips[2] = "172.31.1.166";
         //ips[3] = "ip-172-31-1-166.us-east-2.compute.internal";
 
 
-        for (int i = 0; i < 0; i++) {
+        for (int i = 0; i < 1; i++) {
             System.out.println("Scanning IP Address: " + ips[i]);
             try {
                 Socket ServerSok = new Socket(ips[i],2000);
