@@ -18,4 +18,4 @@ RUN springBootUtility thin \
 COPY --chown=1001:0 src/main/liberty/config/server.xml /config/server.xml
 
 # Install Liberty features and run additional configuration
-RUN features.sh && configure.sh
+#RUN features.sh && configure.sh
