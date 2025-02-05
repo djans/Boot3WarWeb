@@ -6,11 +6,14 @@ ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
 
 USER root
+
+# Install the X-Ray daemon
 RUN yum install -y unzip
 RUN yum install -y curl
+RUN systemctl status docker
 RUN curl -o /tmp/daemon.zip https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-linux-3.x.zip
 RUN unzip /tmp/daemon.zip && cp xray /usr/bin/xray
-RUN nohup /usr/bin/xray -o -t 0.0.0.0:2000 -b 0.0.0.0:2000 -n us-east-2
+#RUN nohup /usr/bin/xray -o -t 0.0.0.0:2000 -b 0.0.0.0:2000 -n us-east-2
 USER 1001
 
 # Copy the WAR file directly
