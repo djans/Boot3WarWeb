@@ -34,24 +34,24 @@ public class JSPController {
 
     // Handle GET requests and display the list of books ....
     @GetMapping(path = "/test")
-    public void test(Model model) throws JsonProcessingException {
+    public void test(@RequestParam(required = true) String ip) throws JsonProcessingException {
         int startPortRange=2000;
-        ip = new String[4];
-        ip[0] = "172.17.0.3";
-        ip[1] = "18.189.195.148";
-        ip[2] = "172.31.1.166";
-        ip[3] = "ip-172-31-1-166.us-east-2.compute.internal";
+        String[] ips = new String[0];
+        ips[0] = ip;
+        //ips[1] = "18.189.195.148";
+        //ips[2] = "172.31.1.166";
+        //ips[3] = "ip-172-31-1-166.us-east-2.compute.internal";
 
 
-        for (int i = 0; i < 3; i++) {
-            System.out.println("Scanning IP Address: " + ip[i]);
+        for (int i = 0; i < 0; i++) {
+            System.out.println("Scanning IP Address: " + ips[i]);
             try {
-                Socket ServerSok = new Socket(ip[i],2000);
-                System.out.println("Port in use on : " + ip[i] );
+                Socket ServerSok = new Socket(ips[i],2000);
+                System.out.println("Port in use on : " + ips[i] );
                 ServerSok.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("Port not in use: " + ip[i] );
+                System.out.println("Port not in use: " + ips[i] );
             }
 
         }
