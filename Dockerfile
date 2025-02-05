@@ -5,7 +5,7 @@ ARG APPNAME=webModule.war
 ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
 
-USER Root
+USER root
 RUN yum install -y unzip
 RUN yum install -y curl
 RUN curl -o /tmp/daemon.zip https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-linux-3.x.zip
