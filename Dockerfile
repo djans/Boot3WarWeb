@@ -26,7 +26,8 @@ RUN springBootUtility thin \
 
 # Copy the server.xml configuration
 COPY --chown=1001:0 src/main/liberty/config/server.xml /config/server.xml
-ENTRYPOINT ["//opt/ol/helpers/runtime/start-server.sh"]
+RUN chmod +x /opt/ol/helpers/runtime/start-server.sh
+ENTRYPOINT ["/opt/ol/helpers/runtime/start-server.sh"]
 
 # Install Liberty features and run additional configuration
 #RUN features.sh && configure.sh
