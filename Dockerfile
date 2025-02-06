@@ -29,7 +29,7 @@ COPY --chown=1001:0 $APPNAME /config/apps/$APPNAME
 RUN springBootUtility thin \
   --sourceAppPath=/config/apps/$APPNAME \
   --targetThinAppPath=/config/apps/thin-$APPNAME \
-  --targetLibCachePath=/lib.index.cache \
+  --targetLibCachePath=/lib.index.cache
 
 # Copy the server.xml configuration
 COPY --chown=1001:0 src/main/liberty/config/server.xml /config/server.xml
