@@ -4,8 +4,11 @@ echo " Starting Docker container ..."
 docker stop boot3warweb || true
 docker rm boot3warweb || true
 
+echo "Pruning Docker images..."
+docker image prune -a || true
+
 echo "Pulling image $IMAGE_URI..."
 docker pull $IMAGE_URI
 
 echo "Starting new container..."
-docker run -d --name boot3warweb -p 80:9080 $IMAGE_URI
+docker run -d --name boot3warweb --restart always -p 80:9080 $IMAGE_URI
