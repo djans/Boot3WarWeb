@@ -15,9 +15,9 @@ RUN unzip /tmp/daemon.zip && cp xray /usr/bin/xray
 RUN ls -ltr
 
 # Install the AWS Log Agent
-RUN yum install amazon-cloudwatch-agent
-COPY awslogs.conf /etc/awslogs/awslogs.conf
-RUN amazon-cloudwatch-agent-ctl -a start
+#RUN yum install amazon-cloudwatch-agent
+#COPY awslogs.conf /etc/awslogs/awslogs.conf
+#RUN amazon-cloudwatch-agent-ctl -a start
 
 # CHange the shell that will be used for the ENDPOINT
 COPY start-server.sh /opt/ol/helpers/runtime/start-server.sh

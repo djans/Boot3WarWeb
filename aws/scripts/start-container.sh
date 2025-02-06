@@ -11,4 +11,4 @@ echo "Pulling image $IMAGE_URI..."
 docker pull $IMAGE_URI
 
 echo "Starting new container..."
-docker run -d --name boot3warweb --restart always -p 80:9080 $IMAGE_URI
+docker run -d -v /opt/aws/amazon-cloudwatch-agent/logs:/logs  --name boot3warweb --restart always -p 80:9080 $IMAGE_URI
