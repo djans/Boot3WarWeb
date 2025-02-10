@@ -34,7 +34,7 @@ jobs:
         with:
           java-version: 21
 
-      - name: chmod
+      - name: chmod the .gitHub Directory
         run: chmod -R +x ./.github
       # Build the code ( Maven )
       - name: Build and Package Maven
@@ -45,7 +45,7 @@ jobs:
       - name: Upload Artifact to s3
         working-directory: ./target
         run: aws s3 cp ./*.war s3://${{ env.S3BUCKET }}/
-      - name: Upload appspec.yml to s3
+      - name: Upload appspec.yml and the scripts to s3
         working-directory: ./
         run: |          
           mkdir ./scripts

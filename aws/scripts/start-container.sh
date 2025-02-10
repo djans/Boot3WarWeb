@@ -5,7 +5,7 @@ docker stop boot3warweb || true
 docker rm boot3warweb || true
 
 echo "Pruning Docker images..."
-docker image prune -a || true
+docker image prune -a -f || true
 
 echo "Pulling image $IMAGE_URI..."
 docker pull $IMAGE_URI
